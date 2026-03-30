@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="anim_duration_short">150</integer>
+    <integer name="anim_duration_medium">300</integer>
+    <integer name="anim_duration_long">500</integer>
+    <integer name="max_lines_title">2</integer>
+    <integer name="max_lines_description">3</integer>
+    <integer name="max_input_chars">100</integer>
+</resources>

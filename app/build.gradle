@@ -1,0 +1,135 @@
+// FocusBloom - 100% Free Task Management & Focus Timer App
+// Zero ads, zero IAP, zero login, 100% offline
+// Complete alternative to Pomodoro ToDo with ALL premium features FREE
+
+plugins {
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
+}
+
+android {
+    namespace 'com.focusbloom.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.focusbloom.app"
+        minSdk 26
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0-FREE"
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables { useSupportLibrary true }
+        
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+        
+        buildConfigField "boolean", "ENABLE_ANALYTICS", "false"
+        buildConfigField "boolean", "ENABLE_CRASHLYTICS", "false"
+        buildConfigField "String", "APP_NAME", "\"FocusBloom\""
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            debuggable true
+        }
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable false
+            signingConfig signingConfigs.debug
+        }
+    }
+    
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    
+    kotlinOptions {
+        jvmTarget = '17'
+        freeCompilerArgs += [
+            '-opt-in=kotlin.RequiresOptIn',
+            '-opt-in=androidx.compose.material3.ExperimentalMaterial3Api',
+            '-opt-in=androidx.compose.animation.ExperimentalAnimationApi',
+            '-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi'
+        ]
+    }
+    
+    buildFeatures {
+        compose true
+        buildConfig true
+        viewBinding false
+    }
+    
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.5.13'
+    }
+    
+    packaging {
+        resources {
+            excludes += [
+                '/META-INF/{AL2.0,LGPL2.1}',
+                'META-INF/NOTICE.md',
+                'META-INF/LICENSE.md'
+            ]
+        }
+    }
+}
+
+dependencies {
+    // Compose BOM
+    implementation platform(libs.compose.bom)
+    implementation libs.bundles.compose
+    
+    // Core Android
+    implementation libs.core
+    implementation libs.activity.compose
+    implementation libs.core.splashscreen
+    implementation libs.lifecycle.runtime
+    implementation libs.lifecycle.viewmodel.compose
+    implementation libs.navigation.compose
+    
+    // DataStore
+    implementation libs.bundles.datastore
+    
+    // Room
+    implementation libs.bundles.room
+    ksp libs.room.compiler
+    
+    // Hilt
+    implementation libs.hilt.android
+    ksp libs.hilt.compiler
+    implementation libs.hilt.navigation.compose
+    
+    // WorkManager
+    implementation libs.work.runtime
+    
+    // Security
+    implementation libs.security.crypto
+    
+    // Third-party
+    implementation libs.bundles.accompanist
+    implementation libs.bundles.coil
+    implementation libs.kotlinx.datetime
+    
+    // Testing
+    testImplementation libs.junit
+    testImplementation libs.turbine
+    testImplementation libs.mockk
+    androidTestImplementation libs.test.ext.junit
+    androidTestImplementation libs.espresso.core
+}

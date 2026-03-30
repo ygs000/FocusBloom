@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <bool name="ic_launcher_foreground_use_pre_11_config">false</bool>
+    <bool name="ic_launcher_background_use_pre_11_config">false</bool>
+</resources>

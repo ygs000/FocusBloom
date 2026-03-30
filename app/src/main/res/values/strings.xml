@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FocusBloom</string>
+    <string name="app_tagline">专注每一刻，成就更好的自己</string>
+    
+    <!-- Timer -->
+    <string name="timer_running">专注计时中</string>
+    <string name="timer_paused">计时已暂停</string>
+    <string name="timer_complete">专注完成！</string>
+    <string name="timer_complete_desc">%s 已完成，休息一下吧</string>
+    <string name="timer_channel_name">专注计时器</string>
+    <string name="timer_channel_desc">显示专注计时器状态和控制</string>
+    
+    <!-- Timer Modes -->
+    <string name="mode_pomodoro">番茄钟</string>
+    <string name="mode_stopwatch">正计时</string>
+    <string name="mode_countdown">倒计时</string>
+    
+    <!-- Task -->
+    <string name="task_title_hint">输入任务名称</string>
+    <string name="task_add">添加任务</string>
+    <string name="task_edit">编辑任务</string>
+    <string name="task_delete">删除任务</string>
+    <string name="task_complete">完成任务</string>
+    <string name="task_empty">暂无任务，点击添加</string>
+    
+    <!-- Actions -->
+    <string name="action_start">开始</string>
+    <string name="action_pause">暂停</string>
+    <string name="action_resume">继续</string>
+    <string name="action_stop">停止</string>
+    <string name="action_cancel">取消</string>
+    <string name="action_save">保存</string>
+    <string name="action_delete">删除</string>
+    <string name="action_confirm">确定</string>
+    
+    <!-- Navigation -->
+    <string name="nav_tasks">任务</string>
+    <string name="nav_focus">专注</string>
+    <string name="nav_stats">统计</string>
+    <string name="nav_settings">设置</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">设置</string>
+    <string name="settings_theme">主题</string>
+    <string name="settings_theme_light">浅色</string>
+    <string name="settings_theme_dark">深色</string>
+    <string name="settings_theme_system">跟随系统</string>
+    <string name="settings_sound">声音</string>
+    <string name="settings_vibration">振动</string>
+    <string name="settings_notifications">通知</string>
+    
+    <!-- About -->
+    <string name="about_title">关于</string>
+    <string name="about_version">版本 %s</string>
+    <string name="about_description">FocusBloom 是一款100%免费、无广告、无内购的专注计时和任务管理应用。</string>
+    <string name="about_privacy">隐私政策</string>
+    <string name="about_opensource">开源许可</string>
+</resources>
