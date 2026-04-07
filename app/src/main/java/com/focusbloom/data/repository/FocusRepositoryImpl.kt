@@ -4,6 +4,7 @@ import com.focusbloom.data.local.FocusSessionDao
 import com.focusbloom.data.local.entity.FocusSessionEntity
 import com.focusbloom.domain.model.*
 import com.focusbloom.domain.repository.FocusRepository
+import com.focusbloom.domain.repository.FocusStats
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import java.time.Instant

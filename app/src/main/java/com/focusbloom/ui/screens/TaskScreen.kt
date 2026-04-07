@@ -1,89 +1,84 @@
-package com.focusbloom
+package com.focusbloom.ui.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import dagger.hilt.android.AndroidEntryPoint
+import com.focusbloom.domain.model.Task
+import com.focusbloom.domain.model.TaskStatus
+import com.focusbloom.ui.theme.FocusBloomTheme
+import java.time.LocalDateTime
+import java.util.UUID
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen()
-        super.onCreate(savedInstanceState)
-        
-        splashScreen.setKeepOnScreenCondition { false }
-        
-        setContent {
-            FocusBloomTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MainScreen()
-                }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen() {
-    var selectedTab by remember { mutableIntStateOf(0) }
-    val tabs = listOf("任务", "专注", "统计", "设置")
-    val icons = listOf(
-        androidx.compose.material.icons.Icons.Default.List,
-        androidx.compose.material.icons.Icons.Default.Timer,
-        androidx.compose.material.icons.Icons.Default.BarChart,
-        androidx.compose.material.icons.Icons.Default.Settings
-    )
-    
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("FocusBloom") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary
+fun TaskScreen() {
+    FocusBloomTheme {
+        var selectedTab by remember { mutableIntStateOf(0) }
+
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = { Text("FocusBloom") },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.primaryContainer,
+                        titleContentColor = MaterialTheme.colorScheme.primary
+                    )
                 )
-            )
-        },
-        bottomBar = {
-            NavigationBar {
-                tabs.forEachIndexed { index, title ->
+            },
+            bottomBar = {
+                NavigationBar {
                     NavigationBarItem(
-                        icon = { Icon(icons[index], contentDescription = title) },
-                        label = { Text(title) },
-                        selected = selectedTab == index,
-                        onClick = { selectedTab = index }
+                        icon = { Icon(Icons.Default.List, contentDescription = "任务") },
+                        label = { Text("任务") },
+                        selected = selectedTab == 0,
+                        onClick = { selectedTab = 0 }
+                    )
+                    NavigationBarItem(
+                        icon = { Icon(Icons.Default.List, contentDescription = "专注") },
+                        label = { Text("专注") },
+                        selected = selectedTab == 1,
+                        onClick = { selectedTab = 1 }
+                    )
+                    NavigationBarItem(
+                        icon = { Icon(Icons.Default.List, contentDescription = "统计") },
+                        label = { Text("统计") },
+                        selected = selectedTab == 2,
+                        onClick = { selectedTab = 2 }
+                    )
+                    NavigationBarItem(
+                        icon = { Icon(Icons.Default.Settings, contentDescription = "设置") },
+                        label = { Text("设置") },
+                        selected = selectedTab == 3,
+                        onClick = { selectedTab = 3 }
                     )
                 }
             }
-        }
-    ) { paddingValues ->
-        Box(modifier = Modifier.padding(paddingValues)) {
-            when (selectedTab) {
-                0 -> TaskListScreen()
-                1 -> FocusTimerScreen()
-                2 -> StatisticsScreen()
-                3 -> SettingsScreen()
+        ) { paddingValues ->
+            Box(modifier = Modifier.padding(paddingValues)) {
+                when (selectedTab) {
+                    0 -> TaskListScreen()
+                    1 -> FocusTimerScreenContent()
+                    2 -> StatisticsScreenContent()
+                    3 -> SettingsScreenContent()
+                }
             }
         }
     }
 }
 
 @Composable
-fun TaskListScreen() {
+private fun TaskListScreen() {
     var tasks by remember { mutableStateOf(listOf<Task>()) }
     var showAddDialog by remember { mutableStateOf(false) }
     var newTaskTitle by remember { mutableStateOf("") }
-    
+
     Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
         Button(
             onClick = { showAddDialog = true },
@@ -91,13 +86,13 @@ fun TaskListScreen() {
         ) {
             Text("+ 新建任务")
         }
-        
+
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         if (tasks.isEmpty()) {
             Box(
                 modifier = Modifier.fillMaxSize(),
-                contentAlignment = androidx.compose.ui.Alignment.Center
+                contentAlignment = Alignment.Center
             ) {
                 Text("暂无任务，点击上方按钮添加", color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
@@ -105,12 +100,12 @@ fun TaskListScreen() {
             tasks.forEach { task ->
                 TaskItem(
                     task = task,
-                    onToggleComplete = { 
-                        tasks = tasks.map { 
+                    onToggleComplete = {
+                        tasks = tasks.map {
                             if (it.id == task.id) it.copy(
                                 status = if (it.status == TaskStatus.DONE) TaskStatus.TODO else TaskStatus.DONE,
-                                completedAt = if (it.status != TaskStatus.DONE) java.time.LocalDateTime.now() else null
-                            ) else it 
+                                completedAt = if (it.status != TaskStatus.DONE) LocalDateTime.now() else null
+                            ) else it
                         }
                     },
                     onDelete = { tasks = tasks.filter { it.id != task.id } }
@@ -119,7 +114,7 @@ fun TaskListScreen() {
             }
         }
     }
-    
+
     if (showAddDialog) {
         AlertDialog(
             onDismissRequest = { showAddDialog = false },
@@ -137,10 +132,10 @@ fun TaskListScreen() {
                     onClick = {
                         if (newTaskTitle.isNotBlank()) {
                             tasks = tasks + Task(
-                                id = java.util.UUID.randomUUID().toString(),
+                                id = UUID.randomUUID().toString(),
                                 title = newTaskTitle.trim(),
-                                createdAt = java.time.LocalDateTime.now(),
-                                updatedAt = java.time.LocalDateTime.now()
+                                createdAt = LocalDateTime.now(),
+                                updatedAt = LocalDateTime.now()
                             )
                             newTaskTitle = ""
                             showAddDialog = false
@@ -156,7 +151,7 @@ fun TaskListScreen() {
 }
 
 @Composable
-fun TaskItem(
+private fun TaskItem(
     task: Task,
     onToggleComplete: () -> Unit,
     onDelete: () -> Unit
@@ -165,9 +160,9 @@ fun TaskItem(
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = if (isDone) 
+            containerColor = if (isDone)
                 MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-            else 
+            else
                 MaterialTheme.colorScheme.surface
         )
     ) {
@@ -175,20 +170,20 @@ fun TaskItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp),
-            verticalAlignment = androidx.compose.ui.Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically
         ) {
             Checkbox(
                 checked = isDone,
                 onCheckedChange = { onToggleComplete() }
             )
-            
+
             Spacer(modifier = Modifier.width(12.dp))
-            
+
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = task.title,
                     style = MaterialTheme.typography.bodyLarge,
-                    textDecoration = if (isDone) androidx.compose.ui.text.style.TextDecoration.LineThrough else null,
+                    textDecoration = if (isDone) TextDecoration.LineThrough else null,
                     color = if (isDone) MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.onSurface
                 )
                 if (task.description.isNotBlank()) {
@@ -200,14 +195,31 @@ fun TaskItem(
                     )
                 }
             }
-            
+
             IconButton(onClick = onDelete) {
                 Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Default.Delete,
+                    imageVector = Icons.Default.Delete,
                     contentDescription = "删除",
                     tint = MaterialTheme.colorScheme.error
                 )
             }
         }
+    }
+}
+
+// Placeholder screens to satisfy references
+@Composable private fun FocusTimerScreenContent() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("专注计时")
+    }
+}
+@Composable private fun StatisticsScreenContent() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("统计")
+    }
+}
+@Composable private fun SettingsScreenContent() {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Text("设置")
     }
 }

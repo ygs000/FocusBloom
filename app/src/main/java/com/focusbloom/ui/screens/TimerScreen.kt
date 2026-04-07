@@ -1,5 +1,7 @@
 package com.focusbloom.ui.screens
 
+import com.focusbloom.ui.theme.FocusBloomTheme
+
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -31,6 +33,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun FocusTimerScreen() {
+    FocusBloomTheme {
     val context = LocalContext.current
     var timerService by remember { mutableStateOf<TimerService?>(null) }
     var isBound by remember { mutableStateOf(false) }
@@ -119,6 +122,7 @@ fun FocusTimerScreen() {
                 context.startService(intent)
             }
         )
+    }
     }
 }
 

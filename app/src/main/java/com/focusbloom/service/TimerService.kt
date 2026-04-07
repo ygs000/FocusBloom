@@ -91,10 +91,16 @@ class TimerService : Service() {
         coroutineScope.cancel()
     }
 
+    inner class LocalBinder : Binder() {
+        fun getService(): TimerService = this@TimerService
+    }
+
     companion object {
         const val ACTION_START_TIMER = "ACTION_START_TIMER"
         const val ACTION_STOP_TIMER = "ACTION_STOP_TIMER"
         const val ACTION_PAUSE_TIMER = "ACTION_PAUSE_TIMER"
         const val ACTION_RESUME_TIMER = "ACTION_RESUME_TIMER"
+        const val EXTRA_DURATION = "EXTRA_DURATION"
+        const val EXTRA_MODE = "EXTRA_MODE"
     }
 }
