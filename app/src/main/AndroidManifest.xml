@@ -3,16 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.focusbloom.app">
 
-    <!-- Required Permissions -->
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
-    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
 
     <application
         android:name=".FocusBloomApplication"
@@ -27,61 +19,16 @@
         android:localeConfig="@xml/locales_config"
         tools:targetApi="34">
 
-        <!-- Main Activity -->
         <activity
             android:name="com.focusbloom.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.FocusBloom.Splash"
-            tools:ignore="DiscouragedApi">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!-- Timer Service -->
-        <service
-            android:name="com.focusbloom.service.TimerService"
-            android:enabled="true"
-            android:exported="false"
-            android:foregroundServiceType="specialUse"
-            android:stopWithTask="false" />
-
-        <!-- Boot Receiver -->
-        <receiver
-            android:name="com.focusbloom.receiver.BootReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
-
-        <!-- Alarm Receiver -->
-        <receiver
-            android:name="com.focusbloom.receiver.AlarmReceiver"
-            android:enabled="true"
-            android:exported="false" />
-
-        <!-- Notification Actions Receiver -->
-        <receiver
-            android:name="com.focusbloom.receiver.NotificationActionReceiver"
-            android:enabled="true"
-            android:exported="false" />
-
-        <!-- File Provider -->
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
 
     </application>
 
