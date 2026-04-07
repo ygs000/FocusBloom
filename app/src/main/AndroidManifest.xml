@@ -29,7 +29,7 @@
 
         <!-- Main Activity -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.focusbloom.MainActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
@@ -43,7 +43,7 @@
 
         <!-- Timer Service -->
         <service
-            android:name=".service.TimerService"
+            android:name="com.focusbloom.service.TimerService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="specialUse"
@@ -51,7 +51,7 @@
 
         <!-- Boot Receiver -->
         <receiver
-            android:name=".receiver.BootReceiver"
+            android:name="com.focusbloom.receiver.BootReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
@@ -62,38 +62,15 @@
 
         <!-- Alarm Receiver -->
         <receiver
-            android:name=".receiver.AlarmReceiver"
+            android:name="com.focusbloom.receiver.AlarmReceiver"
             android:enabled="true"
             android:exported="false" />
 
         <!-- Notification Actions Receiver -->
         <receiver
-            android:name=".receiver.NotificationActionReceiver"
+            android:name="com.focusbloom.receiver.NotificationActionReceiver"
             android:enabled="true"
             android:exported="false" />
-
-        <!-- Widget Provider -->
-        <receiver
-            android:name=".widget.TaskWidgetProvider"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/task_widget_info" />
-        </receiver>
-
-        <receiver
-            android:name=".widget.TimerWidgetProvider"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/timer_widget_info" />
-        </receiver>
 
         <!-- File Provider -->
         <provider
