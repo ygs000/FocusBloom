@@ -15,8 +15,7 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.7
-      - run: ./gradlew assembleDebug --no-daemon
-        shell: bash
+      - run: gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: FocusBloom-apk
