@@ -6,7 +6,12 @@ import com.focusbloom.data.local.entity.*
 @Database(
     entities = [
         TaskEntity::class,
+        FolderEntity::class,
+        TagEntity::class,
+        TaskTagCrossRef::class,
         FocusSessionEntity::class,
+        HabitEntity::class,
+        HabitCheckInEntity::class,
         SettingEntity::class,
         DailyStatsEntity::class
     ],

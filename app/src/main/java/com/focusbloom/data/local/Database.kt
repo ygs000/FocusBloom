@@ -39,8 +39,11 @@ interface FocusSessionDao {
     @Query("SELECT * FROM focus_sessions WHERE end_time IS NULL ORDER BY start_time DESC LIMIT 1")
     fun getActiveSession(): Flow<FocusSessionEntity?>
 
-    @Query("SELECT * FROM focus_sessions WHERE date(start_time / 1000, 'unixepoch') = date(:date / 1000, 'unixepoch')")
-    fun getSessionsByDate(date: Long): Flow<List<FocusSessionEntity>>
+    @Query("SELECT * FROM focus_sessions WHERE start_time >= :startTime AND start_time <= :endTime")
+    fun getSessionsByDate(startTime: Long, endTime: Long): Flow<List<FocusSessionEntity>>
+
+    @Query("SELECT * FROM focus_sessions WHERE id = :sessionId")
+    suspend fun getSessionById(sessionId: String): FocusSessionEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertSession(session: FocusSessionEntity): Long
@@ -63,16 +66,16 @@ interface FocusSessionDao {
 
 @Dao
 interface SettingsDao {
-    @Query("SELECT * FROM settings WHERE `key` = :key")
+    @Query("SELECT * FROM app_settings WHERE `key` = :key")
     suspend fun getSetting(key: String): SettingEntity?
 
-    @Query("SELECT * FROM settings WHERE `key` = :key")
+    @Query("SELECT * FROM app_settings WHERE `key` = :key")
     fun getSettingFlow(key: String): Flow<SettingEntity?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun setSetting(setting: SettingEntity)
 
-    @Query("DELETE FROM settings WHERE `key` = :key")
+    @Query("DELETE FROM app_settings WHERE `key` = :key")
     suspend fun deleteSetting(key: String)
 }
 

@@ -2,14 +2,13 @@
 // Zero ads, zero IAP, zero login, 100% offline
 // Complete alternative to Pomodoro ToDo with ALL premium features FREE
 
-plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.kotlin.parcelize)
-    alias(libs.plugins.hilt)
-    alias(libs.plugins.ksp)
-}
+// 根项目 buildscript 已经通过 classpath 添加了所有插件，这里只需要应用
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'com.google.dagger.hilt.android'
+apply plugin: 'com.google.devtools.ksp'
 
 android {
     namespace 'com.focusbloom.app'
@@ -29,6 +28,11 @@ android {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
+        }
+        
+        // For KSP Room
+        ksp {
+            arg("room.schemaLocation", "$projectDir/schemas")
         }
         
         buildConfigField "boolean", "ENABLE_ANALYTICS", "false"
@@ -124,7 +128,8 @@ dependencies {
     // Third-party
     implementation libs.bundles.accompanist
     implementation libs.bundles.coil
-    implementation libs.kotlinx.datetime
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
     
     // Testing
     testImplementation libs.junit

@@ -299,23 +299,3 @@ private fun TimerControls(
     }
 }
 
-// Minimal implementations for other screens
-@Composable
-fun StatisticsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("统计功能开发中...")
-    }
-}
-
-@Composable
-fun SettingsScreen() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text("设置功能开发中...")
-    }
-}
