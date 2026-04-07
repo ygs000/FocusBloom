@@ -27,7 +27,9 @@ class TimerService : Service() {
     private val notificationId = 1
     private val channelId = "timer_channel"
 
-    override fun onBind(intent: Intent?) = null
+    private val binder = LocalBinder()
+
+    override fun onBind(intent: Intent?): Binder = binder
 
     override fun onCreate() {
         super.onCreate()
