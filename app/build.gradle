@@ -11,7 +11,7 @@ apply plugin: 'com.google.dagger.hilt.android'
 apply plugin: 'com.google.devtools.ksp'
 
 android {
-    namespace 'com.focusbloom.app'
+    namespace 'com.focusbloom'
     compileSdk 34
 
     defaultConfig {
