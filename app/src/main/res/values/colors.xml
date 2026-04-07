@@ -8,6 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="background">#FF6750A4</color>
+    <color name="ic_launcher_background">#FFEF5350</color>
     
     <!-- Brand Colors -->
     <color name="brand_primary">#FF6750A4</color>

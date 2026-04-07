@@ -1,0 +1,33 @@
+<!-- Tomato icon for FocusBloom - red tomato with green stem -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Tomato body (red circle, slightly flattened) -->
+    <path
+        android:fillColor="#E53935"
+        android:pathData="M54,30 C70,30 83,43 83,58 C83,73 70,86 54,86 C38,86 25,73 25,58 C25,43 38,30 54,30 Z" />
+    <!-- Tomato highlight (subtle shine) -->
+    <path
+        android:fillColor="#FF6659"
+        android:pathData="M42,42 C47,37 55,36 60,40 C65,44 66,52 62,58 C58,52 55,45 42,42 Z"
+        android:fillAlpha="0.5" />
+    <!-- Green stem base -->
+    <path
+        android:fillColor="#43A047"
+        android:pathData="M50,30 L58,30 L54,24 Z" />
+    <!-- Green leaves -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M54,28 C54,28 48,22 42,24 C46,28 50,29 54,28 Z" />
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M54,28 C54,28 60,22 66,24 C62,28 58,29 54,28 Z" />
+    <path
+        android:fillColor="#66BB6A"
+        android:pathData="M54,27 C54,27 52,20 50,16 C53,19 54,24 54,27 Z" />
+    <path
+        android:fillColor="#66BB6A"
+        android:pathData="M54,27 C54,27 56,20 58,16 C55,19 54,24 54,27 Z" />
+</vector>

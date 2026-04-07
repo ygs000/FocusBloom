@@ -121,6 +121,10 @@ dependencies {
     
     // WorkManager
     implementation libs.work.runtime
+
+    // Glance App Widget
+    implementation libs.glance
+    implementation libs.glance.material3
     
     // Security
     implementation libs.security.crypto
